@@ -1,0 +1,5 @@
+@if (control?.dirty && control?.invalid) {
+  @if (message$ | async; as message) {
+    <small class="text-error">{{ message }}</small>
+  }
+}

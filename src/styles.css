@@ -11,3 +11,5 @@
 .form-group > label.label {
   @apply mb-2;
 }
+
+html, body { height: 100%; }

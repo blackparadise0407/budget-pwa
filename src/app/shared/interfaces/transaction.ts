@@ -9,7 +9,7 @@ export type TransactionType =
 export interface Transaction {
   uid: string;
   type: TransactionType;
-  category: string;
+  categoryId: string;
   description: string;
   amount: number;
   createdAt: number;

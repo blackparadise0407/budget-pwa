@@ -1,6 +1,8 @@
 import {
   ApplicationConfig,
+  inject,
   isDevMode,
+  provideAppInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -10,6 +12,7 @@ import { provideRouter } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 
 import { routes } from './app.routes';
+import { AuthService } from './shared/services';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,9 +30,13 @@ export const appConfig: ApplicationConfig = {
         apiKey: 'AIzaSyAaeoKCe2L-NGZH0t8OCeLDVlbMQ_8MGUc',
         authDomain: 'budget-pwa-15650.firebaseapp.com',
         messagingSenderId: '850076580826',
-      })
+      }),
     ),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideAppInitializer(() => {
+      const authService = inject(AuthService);
+      return authService.ensureInit();
+    }),
   ],
 };

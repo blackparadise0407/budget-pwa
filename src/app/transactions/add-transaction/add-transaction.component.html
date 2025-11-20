@@ -2,9 +2,13 @@
   class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
 >
   <p class="text-lg font-semibold mb-2">Add new transaction</p>
-  <form class="space-y-5" [formGroup]="formGroup">
+  <form
+    class="space-y-5"
+    [formGroup]="formGroup"
+    (submit)="createTransaction()"
+  >
     <div class="form-group">
-      <label class="label">Type</label>
+      <label class="label" for="type">Type</label>
       <div class="flex gap-5 justify-center">
         <button
           class="btn btn-neutral btn-sm"
@@ -27,28 +31,39 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="label">Category</label>
-      <select class="select" formControlName="category">
-        <option disabled selected>Pick a color</option>
-        <option>Crimson</option>
-        <option>Amber</option>
-        <option>Velvet</option>
-      </select>
-    </div>
+    @if (categories$ | async; as categories) {
+      <div class="form-group">
+        <label class="label" for="categoryId">Category</label>
+        <select class="select" formControlName="categoryId">
+          <option disabled selected>
+            @if (categories.length) {
+              Pick a category
+            } @else {
+              Seem a bit empty here
+            }
+          </option>
+          @for (item of categories; track item.uid) {
+            <option [value]="item.uid">{{ item.name }}</option>
+          }
+        </select>
+        <app-form-error [control]="formGroup.get('category')"></app-form-error>
+      </div>
+    }
 
     <div class="form-group">
-      <label class="label">Amount (VND)</label>
+      <label class="label" for="amount">Amount (VND)</label>
       <input
-        type="number"
+        type="text"
         class="input"
         placeholder="0.00"
         formControlName="amount"
+        appFormatNumber
       />
+      <app-form-error [control]="formGroup.get('amount')"></app-form-error>
     </div>
 
     <div class="form-group">
-      <label class="label">Description</label>
+      <label class="label" for="description">Description</label>
       <input
         type="text"
         class="input"
@@ -58,12 +73,14 @@
     </div>
 
     <div class="flex gap-5 justify-end">
-      <button class="btn btn-neutral mt-4" (click)="closeDialog()">
+      <button
+        type="button"
+        class="btn btn-neutral mt-4"
+        (click)="closeDialog()"
+      >
         Cancel
       </button>
-      <button class="btn btn-primary mt-4" (click)="createTransaction()">
-        Add
-      </button>
+      <button type="submit" class="btn btn-primary mt-4">Add</button>
     </div>
   </form>
 </fieldset>

@@ -1,30 +1,7 @@
 @if (isLoading()) {
-<div class="fixed inset-0 grid place-content-center">
-  <span class="loading loading-bars loading-xl"></span>
-</div>
+  <div class="fixed inset-0 grid place-content-center">
+    <span class="loading loading-bars loading-xl"></span>
+  </div>
 } @else {
-<app-header></app-header>
-<div class="drawer">
-  <input id="my-drawer-1" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content">
-    <!-- Page content here -->
-    <main class="p-2">
-      <router-outlet></router-outlet>
-      <app-add-transaction-button></app-add-transaction-button>
-    </main>
-  </div>
-  <div class="drawer-side">
-    <label
-      for="my-drawer-1"
-      aria-label="close sidebar"
-      class="drawer-overlay"
-    ></label>
-    <ul class="menu bg-base-200 min-h-full w-80 p-4">
-      <!-- Sidebar content here -->
-      <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li>
-    </ul>
-  </div>
-</div>
-
+  <router-outlet></router-outlet>
 }

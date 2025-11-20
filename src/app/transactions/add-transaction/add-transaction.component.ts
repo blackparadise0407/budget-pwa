@@ -6,26 +6,40 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { TransactionType } from 'app/interfaces';
+import { CategoriesService } from '@/categories/services/categories.service';
+import { FormErrorComponent } from '@/shared/components';
+import { FormatNumberDirective } from '@/shared/directives';
+import { CreateTransaction, TransactionType } from '@/shared/interfaces';
+import { AsyncPipe } from '@angular/common';
 import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-add-transaction',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    FormErrorComponent,
+    AsyncPipe,
+    FormatNumberDirective,
+  ],
   templateUrl: './add-transaction.component.html',
   providers: [TransactionService],
 })
 export class AddTransactionComponent {
   private readonly transactionService = inject(TransactionService);
+  private readonly categoriesService = inject(CategoriesService);
 
   public close = new EventEmitter<void>();
   public TransactionType = TransactionType;
+  public categories$ = this.categoriesService.getCategories();
 
   public formGroup = new FormGroup({
     type: new FormControl<TransactionType>(TransactionType.expense),
-    category: new FormControl(''),
+    categoryId: new FormControl<string | null>(null, [Validators.required]),
+    amount: new FormControl<number | null>(null, [
+      Validators.required,
+      Validators.min(0),
+    ]),
     description: new FormControl(''),
-    amount: new FormControl(0, Validators.min(0)),
   });
 
   public changeType(type: TransactionType): void {
@@ -35,12 +49,10 @@ export class AddTransactionComponent {
   }
 
   public createTransaction(): void {
-    this.transactionService.create({
-      amount: 1001,
-      category: 'test',
-      description: '',
-      type: TransactionType.expense,
-    });
+    if (!this.formGroup.valid) {
+      throw new Error('Invalid form');
+    }
+    this.transactionService.create(this.formGroup.value as CreateTransaction);
   }
 
   public closeDialog(): void {

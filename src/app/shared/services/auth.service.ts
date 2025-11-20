@@ -1,4 +1,4 @@
-import { inject, Injectable, isDevMode, signal, Signal } from '@angular/core';
+import { computed, inject, Injectable, isDevMode, signal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
 import {
   Auth,
@@ -7,20 +7,32 @@ import {
   signInWithRedirect,
   User,
 } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { AuthProvider, getAuth } from '@firebase/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private _user = signal<User | null>(null);
-  private firebaseApp = inject(FirebaseApp);
+  private readonly router = inject(Router);
+  private readonly firebaseApp = inject(FirebaseApp);
   private auth: Auth = getAuth(this.firebaseApp);
+
   private _isLoading = signal(true);
+  private _user = signal<User | null>(null);
 
   public user = this._user.asReadonly();
   public isLoading = this._isLoading.asReadonly();
+  public isAuthenticated = computed(() => !!this.user());
 
   constructor() {
-    this.auth.onAuthStateChanged(this.setUser.bind(this));
+    this.ensureInit().then(this.setUser.bind(this));
+  }
+
+  public ensureInit() {
+    return new Promise<User | null>((resolve) => {
+      this.auth.onAuthStateChanged((user) => {
+        resolve(user);
+      });
+    });
   }
 
   public async init(): Promise<void> {
@@ -40,6 +52,7 @@ export class AuthService {
     if (isDevMode()) {
       const authResult = await signInWithPopup(this.auth, provider);
       this.setUser(authResult.user);
+      this.router.navigate(['/']);
     } else {
       await signInWithRedirect(this.auth, provider);
     }

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { AuthProvider, GoogleAuthProvider } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
 
-import { AuthService } from 'app/services';
+import { AuthService } from '@/shared/services';
 
 @Component({
   selector: 'app-login',

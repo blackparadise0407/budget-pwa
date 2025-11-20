@@ -1,13 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
-import { AuthService } from './services';
-import { HeaderComponent } from './layouts/header/header.component';
-import { AddTransactionButtonComponent } from './transactions/add-transaction-button/add-transaction-button.component';
+import { AuthService } from './shared/services';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, AddTransactionButtonComponent],
+  imports: [RouterModule],
   templateUrl: `./app.component.html`,
 })
 export class AppComponent implements OnInit {

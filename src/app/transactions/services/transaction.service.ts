@@ -1,12 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, Firestore, Timestamp } from '@angular/fire/firestore';
+import { addDoc, Timestamp } from '@angular/fire/firestore';
 
-import { CreateTransaction } from 'app/interfaces';
-import { FirestoreHelperService } from 'app/services';
+import { CreateTransaction } from '@/shared/interfaces';
+import { FirestoreHelperService } from '@/shared/services';
 
 @Injectable()
 export class TransactionService {
-  private readonly firestore = inject(Firestore);
   private readonly firestoreHelperService = inject(FirestoreHelperService);
 
   public create(payload: CreateTransaction) {
@@ -19,7 +18,7 @@ export class TransactionService {
       {
         ...payload,
         createdAt: Timestamp.now(),
-      }
+      },
     );
   }
 }

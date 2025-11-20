@@ -1,0 +1,15 @@
+<div class="bg-base-200 h-screen w-80 p-4">
+  <ul class="menu menu-lg w-full">
+    @for (item of routes; track $index) {
+      <li>
+        <a
+          routerLinkActive="menu-active"
+          [routerLink]="item.routerLink"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          {{ item.title }}
+        </a>
+      </li>
+    }
+  </ul>
+</div>

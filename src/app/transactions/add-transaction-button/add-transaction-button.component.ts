@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
-import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
+import { Component, inject } from '@angular/core';
 import { take } from 'rxjs';
+
+import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
 
 @Component({
   selector: 'app-add-transaction-button',
