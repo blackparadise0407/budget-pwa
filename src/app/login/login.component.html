@@ -1,0 +1,16 @@
+<h1>New updates 12345</h1>
+@if (user(); as user) {
+<p>Welcome, {{ user.displayName }}!</p>
+} @else {
+<form>
+  @for (provider of providers; track provider.providerId) {
+  <button
+    class="btn btn-primary"
+    type="button"
+    (click)="signInWithProvider(provider)"
+  >
+    Login with {{ provider.providerId }}
+  </button>
+  }
+</form>
+}

@@ -1,0 +1,69 @@
+<fieldset
+  class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
+>
+  <p class="text-lg font-semibold mb-2">Add new transaction</p>
+  <form class="space-y-5" [formGroup]="formGroup">
+    <div class="form-group">
+      <label class="label">Type</label>
+      <div class="flex gap-5 justify-center">
+        <button
+          class="btn btn-neutral btn-sm"
+          [class.btn-primary]="
+            formGroup.get('type')?.value === TransactionType.income
+          "
+          (click)="changeType(TransactionType.income)"
+        >
+          Income
+        </button>
+        <button
+          class="btn btn-neutral btn-sm"
+          [class.btn-primary]="
+            formGroup.get('type')?.value === TransactionType.expense
+          "
+          (click)="changeType(TransactionType.expense)"
+        >
+          Expense
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="label">Category</label>
+      <select class="select" formControlName="category">
+        <option disabled selected>Pick a color</option>
+        <option>Crimson</option>
+        <option>Amber</option>
+        <option>Velvet</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="label">Amount (VND)</label>
+      <input
+        type="number"
+        class="input"
+        placeholder="0.00"
+        formControlName="amount"
+      />
+    </div>
+
+    <div class="form-group">
+      <label class="label">Description</label>
+      <input
+        type="text"
+        class="input"
+        placeholder="e.g., Weekly groceries"
+        formControlName="description"
+      />
+    </div>
+
+    <div class="flex gap-5 justify-end">
+      <button class="btn btn-neutral mt-4" (click)="closeDialog()">
+        Cancel
+      </button>
+      <button class="btn btn-primary mt-4" (click)="createTransaction()">
+        Add
+      </button>
+    </div>
+  </form>
+</fieldset>
