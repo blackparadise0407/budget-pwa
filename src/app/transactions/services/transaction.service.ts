@@ -9,7 +9,7 @@ export class TransactionService {
   private readonly firestoreHelperService = inject(FirestoreHelperService);
 
   public create(payload: CreateTransaction) {
-    addDoc(
+    return addDoc(
       this.firestoreHelperService.collection((user) => [
         'users',
         user.uid,

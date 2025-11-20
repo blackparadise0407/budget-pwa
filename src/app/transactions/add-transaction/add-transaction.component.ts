@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, EventEmitter, inject } from '@angular/core';
 import {
   FormControl,
@@ -10,7 +11,6 @@ import { CategoriesService } from '@/categories/services/categories.service';
 import { FormErrorComponent } from '@/shared/components';
 import { FormatNumberDirective } from '@/shared/directives';
 import { CreateTransaction, TransactionType } from '@/shared/interfaces';
-import { AsyncPipe } from '@angular/common';
 import { TransactionService } from '../services/transaction.service';
 
 @Component({
@@ -28,6 +28,7 @@ export class AddTransactionComponent {
   private readonly transactionService = inject(TransactionService);
   private readonly categoriesService = inject(CategoriesService);
 
+  public create = new EventEmitter<CreateTransaction>();
   public close = new EventEmitter<void>();
   public TransactionType = TransactionType;
   public categories$ = this.categoriesService.getCategories();
@@ -48,11 +49,11 @@ export class AddTransactionComponent {
     }
   }
 
-  public createTransaction(): void {
+  public async createTransaction(): Promise<void> {
     if (!this.formGroup.valid) {
       throw new Error('Invalid form');
     }
-    this.transactionService.create(this.formGroup.value as CreateTransaction);
+    this.create.emit(this.formGroup.value as CreateTransaction);
   }
 
   public closeDialog(): void {
