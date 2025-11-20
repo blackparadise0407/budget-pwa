@@ -42,6 +42,9 @@ export class AuthService {
     try {
       const authResult = await getRedirectResult(this.auth);
       this.setUser(authResult?.user || null);
+      if (authResult?.user) {
+        this.router.navigate(['/']);
+      }
     } catch {
       this.setUser(null);
     }
