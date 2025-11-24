@@ -3,7 +3,7 @@
 @import "@angular/cdk/overlay-prebuilt.css";
 
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, coffee;
+  themes: all;
 }
 
 @plugin "@tailwindcss/typography";
@@ -12,4 +12,7 @@
   @apply mb-2;
 }
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}

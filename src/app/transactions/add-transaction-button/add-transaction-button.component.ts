@@ -9,7 +9,6 @@ import { TransactionService } from '../services/transaction.service';
   selector: 'app-add-transaction-button',
   imports: [],
   templateUrl: './add-transaction-button.component.html',
-  providers: [TransactionService],
 })
 export class AddTransactionButtonComponent {
   private readonly dialog = inject(Dialog);

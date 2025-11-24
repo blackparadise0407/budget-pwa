@@ -1,3 +1,5 @@
+import { Timestamp } from '@angular/fire/firestore';
+
 export const TransactionType = {
   income: 'income',
   expense: 'expense',
@@ -12,7 +14,7 @@ export interface Transaction {
   categoryId: string;
   description: string;
   amount: number;
-  createdAt: number;
+  createdAt: Timestamp;
 }
 
 export type CreateTransaction = Omit<Transaction, 'uid' | 'createdAt'>;

@@ -1,20 +1,14 @@
 import { computed, inject, Injectable, isDevMode, signal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import {
-  Auth,
-  getRedirectResult,
-  signInWithPopup,
-  signInWithRedirect,
-  User,
-} from '@angular/fire/auth';
+import { signInWithPopup, signInWithRedirect, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { AuthProvider, getAuth } from '@firebase/auth';
+import { AuthProvider, getAuth, getRedirectResult } from '@firebase/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly router = inject(Router);
   private readonly firebaseApp = inject(FirebaseApp);
-  private auth: Auth = getAuth(this.firebaseApp);
+  private auth = getAuth(this.firebaseApp);
 
   private _isLoading = signal(true);
   private _user = signal<User | null>(null);
@@ -31,6 +25,7 @@ export class AuthService {
     return new Promise<User | null>((resolve) => {
       this.auth.onAuthStateChanged((user) => {
         resolve(user);
+        document.getElementById('app-spinner')?.remove();
       });
     });
   }
@@ -41,12 +36,11 @@ export class AuthService {
     }
     try {
       const authResult = await getRedirectResult(this.auth);
-      this.setUser(authResult?.user || null);
       if (authResult?.user) {
         this.router.navigate(['/']);
       }
-    } catch {
-      this.setUser(null);
+    } catch (error: unknown) {
+      console.error('Error processing redirect result', error);
     }
   }
 

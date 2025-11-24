@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,7 +11,6 @@ import { CategoriesService } from '@/categories/services/categories.service';
 import { FormErrorComponent } from '@/shared/components';
 import { FormatNumberDirective } from '@/shared/directives';
 import { CreateTransaction, TransactionType } from '@/shared/interfaces';
-import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-add-transaction',
@@ -22,12 +21,11 @@ import { TransactionService } from '../services/transaction.service';
     FormatNumberDirective,
   ],
   templateUrl: './add-transaction.component.html',
-  providers: [TransactionService],
 })
 export class AddTransactionComponent {
-  private readonly transactionService = inject(TransactionService);
   private readonly categoriesService = inject(CategoriesService);
 
+  @Output()
   public create = new EventEmitter<CreateTransaction>();
   public close = new EventEmitter<void>();
   public TransactionType = TransactionType;

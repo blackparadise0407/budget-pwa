@@ -57,6 +57,7 @@
         class="input"
         placeholder="0.00"
         formControlName="amount"
+        inputmode="numeric"
         appFormatNumber
       />
       <app-form-error [control]="formGroup.get('amount')"></app-form-error>

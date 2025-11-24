@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, Firestore } from '@angular/fire/firestore';
-import { AuthService } from './auth.service';
 import { User } from '@angular/fire/auth';
+import { collection, Firestore } from '@angular/fire/firestore';
+
+import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreHelperService {

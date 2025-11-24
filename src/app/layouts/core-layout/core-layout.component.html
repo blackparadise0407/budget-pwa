@@ -1,19 +1,5 @@
-<app-header></app-header>
-<div class="drawer">
-  <input id="my-drawer-1" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content">
-    <!-- Page content here -->
-    <main class="p-2">
-      <router-outlet></router-outlet>
-      <app-add-transaction-button></app-add-transaction-button>
-    </main>
-  </div>
-  <div class="drawer-side">
-    <label
-      for="my-drawer-1"
-      aria-label="close sidebar"
-      class="drawer-overlay"
-    ></label>
-    <app-sidebar></app-sidebar>
-  </div>
-</div>
+<main class="p-4 pb-24 bg-base-300 min-h-dvh">
+  <router-outlet></router-outlet>
+  <app-add-transaction-button></app-add-transaction-button>
+</main>
+<app-navbar></app-navbar>

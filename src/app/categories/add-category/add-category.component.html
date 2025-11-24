@@ -1,0 +1,24 @@
+<form
+  class="bg-base-200 border-base-300 rounded-box w-xs border p-4"
+  [formGroup]="formGroup"
+  (submit)="submit()"
+>
+  <p class="text-lg font-semibold mb-2">Add new category</p>
+  <div class="form-group">
+    <label class="label" for="name">Name</label>
+    <input
+      type="text"
+      class="input"
+      placeholder="Grocery"
+      formControlName="name"
+    />
+    <app-form-error [control]="formGroup.get('name')"></app-form-error>
+  </div>
+
+  <div class="flex gap-5 justify-end">
+    <button type="button" class="btn btn-neutral mt-4" (click)="cancel()">
+      Cancel
+    </button>
+    <button type="submit" class="btn btn-primary mt-4">Add</button>
+  </div>
+</form>
