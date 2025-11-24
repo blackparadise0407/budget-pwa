@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AuthProvider, GoogleAuthProvider } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
 
@@ -14,10 +14,12 @@ export class LoginComponent {
 
   public email = '';
   public user = this.authService.user;
-
   public providers = [new GoogleAuthProvider()];
 
+  public isLoading = signal(false);
+
   public signInWithProvider(provider: AuthProvider): void {
+    this.isLoading.set(true);
     this.authService.signIn(provider);
   }
 }

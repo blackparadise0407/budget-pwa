@@ -1,3 +1,5 @@
+@let _isLoading = isLoading();
+
 <div class="h-screen grid place-content-center">
   <fieldset
     class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
@@ -10,7 +12,11 @@
         class="btn btn-primary"
         type="button"
         (click)="signInWithProvider(provider)"
+        [disabled]="_isLoading"
       >
+        @if (_isLoading) {
+          <span class="loading loading-spinner"></span>
+        }
         Login with {{ provider.providerId }}
       </button>
     }
