@@ -2,5 +2,10 @@
 <p class="mt-2">Welcome back! Here's your budget overview.</p>
 
 @if (transactions(); as transactions) {
-  <app-transaction-list [transactions]="transactions"></app-transaction-list>
+  <app-transaction-list
+    [isLoading]="isLoading()"
+    [canLoadMore]="canLoadMore()"
+    [transactions]="transactions"
+    (loadMore)="loadMore()"
+  ></app-transaction-list>
 }

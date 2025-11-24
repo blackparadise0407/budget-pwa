@@ -2,7 +2,7 @@
 
 @if (category$ | async; as category) {
   <div class="flex items-center gap-3">
-    <div class="text-left grow min-w-0">
+    <div class="text-left self-start grow min-w-0">
       <strong>{{ category.name }}</strong>
       <p class="text-sm line-clamp-2">
         {{ transaction.description }}

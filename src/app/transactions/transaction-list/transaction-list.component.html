@@ -1,10 +1,19 @@
 <div>
   <h1 class="font-semibold text-2xl">Recent transactions</h1>
-  <ul class="list bg-base-100 rounded-box shadow-md mt-2">
-    @for (item of transactions; track item.uid) {
-      <li class="list-row gap-0 block">
-        <app-transaction-item [transaction]="item"></app-transaction-item>
-      </li>
+  <cdk-virtual-scroll-viewport
+    itemSize="74"
+    class="list bg-base-100 rounded-box shadow-md mt-2 h-72 overflow-y-auto"
+  >
+    <div
+      *cdkVirtualFor="let item of transactions; trackBy: trackById"
+      class="list-row gap-0 block"
+    >
+      <app-transaction-item [transaction]="item"></app-transaction-item>
+    </div>
+    @if (isLoading) {
+      <div class="text-center">
+        <span class="loading loading-bars"></span>
+      </div>
     }
-  </ul>
+  </cdk-virtual-scroll-viewport>
 </div>
