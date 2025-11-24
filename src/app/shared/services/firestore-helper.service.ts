@@ -21,4 +21,8 @@ export class FirestoreHelperService {
     const [path, ...segments] = cb(this.getUser());
     return collection(this.firestore, path, ...segments);
   }
+
+  public userCollection(...segments: string[]) {
+    return this.collection((user) => ['users', user.uid, ...segments]);
+  }
 }

@@ -12,17 +12,10 @@ export class TransactionService {
   private _isLoading = signal(false);
 
   public create(payload: CreateTransaction) {
-    return addDoc(
-      this.firestoreHelperService.collection((user) => [
-        'users',
-        user.uid,
-        'transactions',
-      ]),
-      {
-        ...payload,
-        createdAt: Timestamp.now(),
-      },
-    );
+    return addDoc(this.firestoreHelperService.userCollection('transactions'), {
+      ...payload,
+      createdAt: Timestamp.now(),
+    });
   }
 
   public getAll() {
@@ -40,13 +33,7 @@ export class TransactionService {
     try {
       this._isLoading.set(true);
       const data = await getDocs(
-        query(
-          this.firestoreHelperService.collection((user) => [
-            'users',
-            user.uid,
-            'transactions',
-          ]),
-        ),
+        query(this.firestoreHelperService.userCollection('transactions')),
       );
       const transactions: Transaction[] = [];
       data.forEach((it) => {

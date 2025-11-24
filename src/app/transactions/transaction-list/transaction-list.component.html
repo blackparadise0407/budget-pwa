@@ -1,29 +1,10 @@
-<div
-  class="mt-5 overflow-x-auto rounded-box border border-base-content/5 bg-base-100"
->
-  <table class="table table-sm table-pin-rows">
-    <thead>
-      <tr>
-        <th>Amount (VND)</th>
-        <th>Description</th>
-        <th>Created at</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (item of transactions; track item.uid) {
-        @let isIncome = item.type === "income";
-        <tr>
-          <td [ngClass]="isIncome ? 'text-primary' : 'text-error'">
-            {{ isIncome ? "+" : "-" }} {{ item.amount | currency: "VND" }}
-          </td>
-          <td>
-            {{ item.description }}
-          </td>
-          <td>
-            {{ item.createdAt.toDate() | date: "medium" }}
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
+<div>
+  <h1 class="font-semibold text-2xl">Recent transactions</h1>
+  <ul class="list bg-base-100 rounded-box shadow-md mt-2">
+    @for (item of transactions; track item.uid) {
+      <li class="list-row gap-0">
+        <app-transaction-item [transaction]="item"></app-transaction-item>
+      </li>
+    }
+  </ul>
 </div>
