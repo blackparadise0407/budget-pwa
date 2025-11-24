@@ -4,12 +4,10 @@
   <div class="flex items-center gap-3">
     <div class="text-left grow min-w-0">
       <strong>{{ category.name }}</strong>
-      <p class="text-sm truncate">
-        {{ transaction.description }} Lorem, ipsum dolor sit amet consectetur
-        adipisicing elit. Temporibus, ex?
+      <p class="text-sm line-clamp-2">
+        {{ transaction.description }}
       </p>
     </div>
-    <div class="grow"></div>
     <div class="text-right shrink-0">
       <p [class]="isIncome ? 'text-success' : 'text-error'">
         {{ isIncome ? "+" : "-" }} {{ transaction.amount | currency: "VND" }}
@@ -18,7 +16,6 @@
         {{ transaction.createdAt.toDate() | date: "short" }}
       </small>
     </div>
-
     <button class="btn btn-error btn-circle btn-sm">
       <svg
         xmlns="http://www.w3.org/2000/svg"
