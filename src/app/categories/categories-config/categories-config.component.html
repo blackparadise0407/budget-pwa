@@ -42,7 +42,7 @@
           <th>{{ $index + 1 }}</th>
           <td>{{ item.name }}</td>
           <td>
-            <div class="flex justify-center gap-2">
+            <div class="flex justify-end gap-2">
               <button
                 class="btn btn-sm btn-circle btn-accent text-accent-content"
               >
@@ -63,6 +63,7 @@
               </button>
               <button
                 class="btn btn-sm btn-circle btn-error text-error-content"
+                (click)="deleteCategory(item)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -1,3 +1,7 @@
 a.active > span {
   @apply hidden;
 }
+
+ul > li {
+  @apply flex justify-center;
+}

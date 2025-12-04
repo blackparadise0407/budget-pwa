@@ -1,5 +1,12 @@
 import { AsyncPipe, CurrencyPipe, DatePipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CategoriesService } from '@/categories/services/categories.service';
@@ -14,6 +21,8 @@ export class TransactionItemComponent implements OnInit {
   private readonly categoriesService = inject(CategoriesService);
 
   @Input({ required: true }) transaction: Transaction;
+  @Output() delete = new EventEmitter<string>();
+
   public readonly TransactionType = TransactionType;
   public category$: Observable<Category>;
 
@@ -21,5 +30,9 @@ export class TransactionItemComponent implements OnInit {
     this.category$ = this.categoriesService.getById(
       this.transaction.categoryId,
     );
+  }
+
+  public handleDelete(): void {
+    this.delete.emit(this.transaction.uid);
   }
 }

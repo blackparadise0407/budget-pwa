@@ -1,0 +1,13 @@
+@if (url) {
+  <div class="avatar">
+    <div class="w-24 rounded-full">
+      <img [ngSrc]="url" width="96" height="96" [alt]="displayName" />
+    </div>
+  </div>
+} @else {
+  <div class="avatar avatar-placeholder">
+    <div class="bg-neutral text-neutral-content w-24 rounded-full">
+      <span class="text-3xl">{{ displayName | slice: 0 : 1 }}</span>
+    </div>
+  </div>
+}

@@ -8,7 +8,10 @@
       *cdkVirtualFor="let item of transactions; trackBy: trackById"
       class="list-row gap-0 block"
     >
-      <app-transaction-item [transaction]="item"></app-transaction-item>
+      <app-transaction-item
+        [transaction]="item"
+        (delete)="handleDelete($event)"
+      ></app-transaction-item>
     </div>
     @if (isLoading) {
       <div class="text-center">

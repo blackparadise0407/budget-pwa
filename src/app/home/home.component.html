@@ -1,11 +1,46 @@
-<h1 class="text-3xl">Dashboard</h1>
-<p class="mt-2">Welcome back! Here's your budget overview.</p>
+<section>
+  <h1 class="text-3xl">Dashboard</h1>
+  <p class="mt-1">Welcome back! Here's your budget overview.</p>
+</section>
 
-@if (transactions(); as transactions) {
-  <app-transaction-list
-    [isLoading]="isLoading()"
-    [canLoadMore]="canLoadMore()"
-    [transactions]="transactions"
-    (loadMore)="loadMore()"
-  ></app-transaction-list>
+@if (stats$ | async; as stats) {
+  <section class="flex justify-center">
+    <div class="stats shadow">
+      <div class="stat">
+        <div class="stat-title">Total income</div>
+        <div class="stat-value text-success text-xl">
+          {{ stats.totalIncome | currency: "VND" }}
+        </div>
+        <div class="stat-desc">21% more than last month</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Total expense</div>
+        <div class="stat-value text-error text-xl">
+          {{ stats.totalExpense | currency: "VND" }}
+        </div>
+        <div class="stat-desc">21% more than last month</div>
+      </div>
+    </div>
+  </section>
 }
+
+<section>
+  @if (transactions(); as transactions) {
+    @if (transactions.length) {
+      <app-transaction-list
+        [isLoading]="isLoading()"
+        [canLoadMore]="canLoadMore()"
+        [transactions]="transactions"
+        (loadMore)="loadMore()"
+        (delete)="deleteById($event)"
+      ></app-transaction-list>
+    } @else {
+      <div role="alert" class="alert">
+        <span>
+          You haven't added anything yet. Create your first transaction!
+        </span>
+      </div>
+    }
+  }
+</section>

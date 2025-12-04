@@ -27,6 +27,7 @@ export class TransactionListComponent implements AfterViewInit {
   private readonly destroyRef = inject(DestroyRef);
 
   @Output() loadMore = new EventEmitter();
+  @Output() delete = new EventEmitter<string>();
   @Input({ required: true }) transactions: Transaction[];
   @Input({ required: true }) canLoadMore: boolean;
   @Input() isLoading = true;
@@ -51,5 +52,9 @@ export class TransactionListComponent implements AfterViewInit {
         tap(() => this.loadMore.emit()),
       )
       .subscribe();
+  }
+
+  public handleDelete(uid: string) {
+    this.delete.emit(uid);
   }
 }

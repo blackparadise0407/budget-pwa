@@ -16,7 +16,7 @@
         {{ transaction.createdAt.toDate() | date: "short" }}
       </small>
     </div>
-    <button class="btn btn-error btn-circle btn-sm">
+    <button class="btn btn-error btn-circle btn-sm" (click)="handleDelete()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

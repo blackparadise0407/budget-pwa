@@ -1,0 +1,19 @@
+<div class="modal-box w-full opacity-100">
+  <h3 class="text-lg font-bold">{{ data.title }}</h3>
+  @if (data.description) {
+    <p class="py-4">{{ data.description }}</p>
+  }
+  <div class="modal-action">
+    <!-- if there is a button in form, it will close the modal -->
+    <button class="btn btn-ghost" (click)="close()">
+      {{ data.cancelText }}
+    </button>
+    <button
+      class="btn btn-primary"
+      [class.btn-error!]="data.danger"
+      (click)="handleConfirm()"
+    >
+      {{ data.confirmText }}
+    </button>
+  </div>
+</div>

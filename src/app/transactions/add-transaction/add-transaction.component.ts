@@ -29,7 +29,7 @@ export class AddTransactionComponent {
   public create = new EventEmitter<CreateTransaction>();
   public close = new EventEmitter<void>();
   public TransactionType = TransactionType;
-  public categories$ = this.categoriesService.getCategories();
+  public categories$ = this.categoriesService.getAll();
 
   public formGroup = new FormGroup({
     type: new FormControl<TransactionType>(TransactionType.expense),

@@ -1,8 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { User } from '@angular/fire/auth';
-import { collection, Firestore } from '@angular/fire/firestore';
+import {
+  collection,
+  Firestore,
+  writeBatch,
+  WriteBatch,
+} from '@angular/fire/firestore';
 
 import { AuthService } from './auth.service';
+
+type Collection = 'transactions' | 'categories' | 'statistics';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreHelperService {
@@ -17,12 +24,23 @@ export class FirestoreHelperService {
     return user;
   }
 
-  public collection(cb: (user: User) => string[]) {
+  public getCollection(collection: Collection, ...segments: string[]) {
+    return this.userCollection(collection, ...segments);
+  }
+
+  public createWriteBatch(): WriteBatch {
+    return writeBatch(this.firestore);
+  }
+
+  /**
+   * Should not expose to restrict collection
+   */
+  private collection(cb: (user: User) => string[]) {
     const [path, ...segments] = cb(this.getUser());
     return collection(this.firestore, path, ...segments);
   }
 
-  public userCollection(...segments: string[]) {
+  private userCollection(...segments: string[]) {
     return this.collection((user) => ['users', user.uid, ...segments]);
   }
 }

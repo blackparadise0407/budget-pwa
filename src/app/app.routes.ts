@@ -10,6 +10,7 @@ export const routes: Routes = [
         (m) => m.CoreLayoutComponent,
       ),
     canActivate: [authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',
@@ -22,6 +23,13 @@ export const routes: Routes = [
           import(
             './categories/categories-config/categories-config.component'
           ).then((m) => m.CategoriesConfigComponent),
+      },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./user/profile/profile.component').then(
+            (m) => m.ProfileComponent,
+          ),
       },
     ],
   },

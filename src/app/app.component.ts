@@ -18,6 +18,6 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this.authService.init();
-    this.categoriesService.getCategories().pipe(take(1)).subscribe();
+    this.categoriesService.getAll().pipe(take(1)).subscribe();
   }
 }

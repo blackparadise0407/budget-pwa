@@ -18,3 +18,8 @@ export interface Transaction {
 }
 
 export type CreateTransaction = Omit<Transaction, 'uid' | 'createdAt'>;
+
+export interface TransactionStats {
+  totalIncome: number;
+  totalExpense: number;
+}
